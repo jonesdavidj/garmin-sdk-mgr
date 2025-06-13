@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /sdk
 
 COPY sdk-init.sh install-cli.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/sd*.sh
+RUN chmod +x /usr/local/bin/sdk-init.sh
+RUN chmod +x /usr/local/bin/install-cli.sh
 
 CMD ["/bin/bash"]
