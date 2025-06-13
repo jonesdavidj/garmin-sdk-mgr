@@ -12,7 +12,7 @@ It allows you to:
 
 ```
 .
-├── Dockerfile.sdkmgr       # Dockerfile to build the container
+├── Dockerfile              # Dockerfile to build the container
 ├── sdk-init.sh             # Interactive SDK setup script
 ├── install-cli.sh          # CLI installer for Garmin SDK Manager CLI
 ├── docker-compose.yml      # Stack config for Portainer or local use
