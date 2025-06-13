@@ -2,20 +2,19 @@ FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# First, install bash and other deps
+# Install dependencies including bash
 RUN apt-get update && apt-get install -y \
     curl unzip git ca-certificates jq bash \
     && rm -rf /var/lib/apt/lists/*
 
-# Then separately run the bash script using bash (bash is now definitely available)
-RUN curl -s -o /tmp/install.sh https://raw.githubusercontent.com/lindell/connect-iq-sdk-manager-cli/master/install.sh
-RUN bash /tmp/install.sh && rm /tmp/install.sh
-
 # Set working directory
 WORKDIR /sdk
 
-# Copy the init script
-COPY sdk-init.sh /sdk/sdk-init.sh
-RUN chmod +x /sdk/sdk-init.sh
+# Copy helper scripts into the container
+COPY sdk-init.sh install-cli.sh /sdk/
 
+# Ensure both scripts are executable at build time
+RUN chmod +x /sdk/sdk-init.sh /sdk/install-cli.sh
+
+# Default to bash shell
 CMD ["/bin/bash"]
