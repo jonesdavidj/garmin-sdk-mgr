@@ -52,13 +52,13 @@ docker-compose exec sdkmgr bash
 5. **Install the SDK Manager CLI:**
 
 ```bash
-./install-cli.sh
+./usr/local/bin/install-cli.sh
 ```
 
 6. **Run the setup script (SDK + devices):**
 
 ```bash
-./sdk-init.sh
+./usr/local/bin/sdk-init.sh
 ```
 
 7. **Your downloaded SDK will be available at:**
