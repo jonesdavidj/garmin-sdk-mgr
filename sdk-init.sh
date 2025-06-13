@@ -17,7 +17,7 @@ echo "📜 Viewing Garmin SDK license..."
 connect-iq-sdk-manager agreement view
 
 read -p "Paste the acceptance hash from above: " ACCEPTANCE_HASH
-connect-iq-sdk-manager agreement accept --acceptance-hash "$ACCEPTANCE_HASH"
+connect-iq-sdk-manager agreement accept --agreement-hash "$ACCEPTANCE_HASH"
 
 # Use env vars or prompt fallback
 if [ -z "$GARMIN_USERNAME" ]; then
