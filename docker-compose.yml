@@ -2,7 +2,7 @@ services:
   sdkmgr:
     build:
       context: .
-      dockerfile: Dockerfile.sdkmgr
+      dockerfile: Dockerfile
     volumes:
       - ./garmin-sdk:/sdk  # Share SDK output
     stdin_open: true
