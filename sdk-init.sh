@@ -32,6 +32,8 @@ fi
 
 echo ""
 echo "🔐 Logging into Garmin developer account..."
+echo "Username: $GARMIN_USERNAME"
+echo "Password: $GARMIN_PASSWORD"
 export GARMIN_USERNAME
 export GARMIN_PASSWORD
 connect-iq-sdk-manager login
