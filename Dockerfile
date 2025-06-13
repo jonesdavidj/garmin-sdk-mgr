@@ -7,14 +7,9 @@ RUN apt-get update && apt-get install -y \
     curl unzip git ca-certificates jq bash \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /sdk
 
-# Copy helper scripts into the container
-COPY sdk-init.sh install-cli.sh /sdk/
+COPY sdk-init.sh install-cli.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/sd*.sh
 
-# Ensure both scripts are executable at build time
-RUN chmod +x /sdk/sdk-init.sh /sdk/install-cli.sh
-
-# Default to bash shell
 CMD ["/bin/bash"]
