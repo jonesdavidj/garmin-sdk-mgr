@@ -1,9 +1,14 @@
+# docker-compose.yml
+version: "3.8"
+
 services:
   sdkmgr:
     build:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - ./garmin-sdk:/sdk  # Share SDK output
+      - ./garmin-sdk:/sdk
     stdin_open: true
     tty: true
+    env_file:
+      - .env

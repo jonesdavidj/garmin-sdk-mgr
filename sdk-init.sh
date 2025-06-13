@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# Garmin Connect IQ SDK CLI Setup Script (for Linux/Docker)
-
 set -e
 
 SDK_VERSION="8.1.1"
@@ -21,14 +19,21 @@ connect-iq-sdk-manager agreement view
 read -p "Paste the acceptance hash from above: " ACCEPTANCE_HASH
 connect-iq-sdk-manager agreement accept --acceptance-hash "$ACCEPTANCE_HASH"
 
-echo ""
-echo "🔐 Logging into Garmin developer account..."
-read -p "Enter your Garmin username (email): " GARMIN_USERNAME
-read -s -p "Enter your Garmin password: " GARMIN_PASSWORD
-echo ""
+# Use env vars or prompt fallback
+if [ -z "$GARMIN_USERNAME" ]; then
+  read -p "Enter your Garmin username (email): " GARMIN_USERNAME
+fi
+
+if [ -z "$GARMIN_PASSWORD" ]; then
+  read -s -p "Enter your Garmin password: " GARMIN_PASSWORD
+  echo ""
+fi
+
 export GARMIN_USERNAME
 export GARMIN_PASSWORD
 
+echo ""
+echo "🔐 Logging into Garmin developer account..."
 connect-iq-sdk-manager login
 
 echo ""
@@ -36,15 +41,12 @@ echo "⬇️ Downloading SDK version $SDK_VERSION..."
 connect-iq-sdk-manager sdk set "$SDK_VERSION"
 
 echo ""
-echo "📦 Current SDK path: $(connect-iq-sdk-manager sdk current-path)"
-
+echo "📂 Checking for manifest: $MANIFEST_FILE"
 if [ -f "$MANIFEST_FILE" ]; then
-    echo "📂 Downloading devices based on manifest: $MANIFEST_FILE"
+    echo "📦 Downloading devices for manifest..."
     connect-iq-sdk-manager device download --manifest="$MANIFEST_FILE"
 else
-    echo "⚠️ Warning: '$MANIFEST_FILE' not found. Skipping device download."
-    echo "📄 If you want to fetch devices later, run:"
-    echo "    connect-iq-sdk-manager device download --manifest=your_manifest.xml"
+    echo "⚠️ '$MANIFEST_FILE' not found — skipping device download."
 fi
 
 echo ""
